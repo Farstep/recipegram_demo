@@ -1,0 +1,64 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        レシピ詳細
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-7">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <%= attachment_image_tag @recipe, :image %>
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4"><%= @recipe.title %></p>
+              </div>
+            </div>
+            <div class="content">
+              <table class="table is-narrow">
+                <tr>
+                  <th>レシピ</th>
+                </tr>
+                <tr>
+                  <td><%= simple_format @recipe.body %></td>
+                </tr>
+              </table>
+              <% if @recipe.user.id == current_user.id %>
+                <%= link_to "編集画面へ", edit_recipe_path(@recipe), class: "button is-success" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-4">
+        <article class="panel is-link">
+          <p class="panel-heading">
+            By <%= @recipe.user.username %>
+          </p>
+          <div class="panel-block">
+            <p class="control">
+              <%= @recipe.user.profile %>
+            </p>
+          </div>
+          <%= link_to user_path(@recipe.user), class: "panel-block" do %>
+            <span class="panel-icon">
+              <i class="fas fa-user" aria-hidden="true"></i>
+            </span>
+            <%= @recipe.user.username %> さんのページへ
+          <% end %>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
